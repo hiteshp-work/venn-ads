@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Venn Paid Ad Creative Suite — Search, LinkedIn, Meta & Reddit</title>
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Sans Web Font & Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,20 +37,18 @@
   </script>
 
   <style>
-    /* Global subpixel anti-aliasing & crisp font smoothing */
+    /* Global subpixel anti-aliasing & crisp typography smoothing */
     *, *::before, *::after {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
     }
 
-    /* Studio Backdrop styling */
     body {
       background-color: #eef2f6;
       font-family: 'Google Sans', 'Google Sans Text', 'Plus Jakarta Sans', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
+
     .custom-scrollbar::-webkit-scrollbar {
       height: 6px;
       width: 6px;
@@ -90,11 +88,11 @@
 
       <!-- Quick Action Controls -->
       <div class="flex items-center gap-2">
-        <button onclick="copyAllAdCopy()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-colors">
+        <button onclick="copyAllAdCopy()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-colors cursor-pointer">
           <i class="fa-regular fa-copy text-slate-500"></i>
           <span>Copy Ad Copy</span>
         </button>
-        <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#008751] hover:bg-[#007545] text-white text-xs font-bold transition-all shadow-xs">
+        <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#008751] hover:bg-[#007545] text-white text-xs font-bold transition-all shadow-xs cursor-pointer">
           <i class="fa-solid fa-file-arrow-down"></i>
           <span class="hidden sm:inline">Export High-Res</span> PDF
         </button>
@@ -108,22 +106,22 @@
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1 text-xs font-bold">
         <span class="text-slate-400 mr-1.5 uppercase tracking-wider text-[11px] hidden md:inline">View Format:</span>
-        <button id="tab-all" onclick="selectView('all')" class="px-3 py-1.5 rounded-lg bg-[#008751] text-white shadow-xs transition-all">
+        <button id="tab-all" onclick="selectView('all')" class="px-3 py-1.5 rounded-lg bg-[#008751] text-white shadow-xs transition-all cursor-pointer">
           All Formats (Matrix)
         </button>
-        <button id="tab-search" onclick="selectView('search')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5">
+        <button id="tab-search" onclick="selectView('search')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5 cursor-pointer">
           <i class="fa-brands fa-google text-slate-500"></i>
-          <span>Google Search Ads (3 Variants)</span>
+          <span>Google Search Ads (3)</span>
         </button>
-        <button id="tab-linkedin" onclick="selectView('linkedin')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5">
+        <button id="tab-linkedin-doc" onclick="selectView('linkedin-doc')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5 cursor-pointer">
           <i class="fa-brands fa-linkedin text-[#0a66c2]"></i>
-          <span>LinkedIn — Document Ad</span>
+          <span>LinkedIn — 6-Slide Executive Brief</span>
         </button>
-        <button id="tab-meta" onclick="selectView('meta')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5">
+        <button id="tab-meta" onclick="selectView('meta')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5 cursor-pointer">
           <i class="fa-brands fa-meta text-indigo-600"></i>
           <span>Meta — Feed / Story</span>
         </button>
-        <button id="tab-reddit" onclick="selectView('reddit')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5">
+        <button id="tab-reddit" onclick="selectView('reddit')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5 cursor-pointer">
           <i class="fa-brands fa-reddit text-[#ff4500]"></i>
           <span>Reddit — Native Post</span>
         </button>
@@ -137,27 +135,24 @@
   </div>
 
   <!-- Notification Toast for Copy Action -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-xl hidden items-center gap-2 border border-slate-700">
-    <i class="fa-solid fa-circle-check text-emerald-400"></i>
-    <span id="toast-msg">Ad Copy copied to clipboard!</span>
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold shadow-xl border border-slate-700">
+    <i class="fa-solid fa-circle-check text-[#008751]"></i>
+    <span id="toast-msg">Copied to clipboard</span>
   </div>
 
-  <!-- Main Canvas Content Area -->
+  <!-- Main Grid Workspace -->
   <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-    
-    <!-- Grid Container for all 4 Creatives -->
     <div id="creatives-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
 
       <!-- ========================================================================= -->
       <!-- FORMAT 1: GOOGLE SEARCH ADS (Exact Match to Search Ads — 3 Variants@2x.jpg) -->
       <!-- ========================================================================= -->
-      <section id="format-search-section" class="w-full flex flex-col space-y-3.5">
+      <section id="format-search-section" class="w-full flex flex-col space-y-3.5 font-google">
         
-        <!-- Top Label Header matching image green pill -->
-        <div class="flex items-center gap-2.5 px-0.5">
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-black bg-[#008751] text-white tracking-tight">
-            <!-- Venn white icon -->
-            <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 100 100" fill="none">
+        <!-- Header text matching uploaded image -->
+        <div class="flex items-center gap-2 px-0.5">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-black bg-[#008751] text-white">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 100 100" fill="none">
               <path d="M50 4 V42" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
               <path d="M19 23 L44 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
               <path d="M81 23 L56 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
@@ -165,27 +160,24 @@
               <path d="M22 88 L43 56" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
               <path d="M78 88 L57 56" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
             </svg>
-            <span class="tracking-tight text-white font-black">venn</span>
+            <span>venn</span>
           </span>
-          <span class="text-sm font-bold text-slate-900">Search Ads</span>
-          <span class="text-xs text-slate-400 font-normal truncate">— three intent variants, shown as they'd render on Google</span>
+          <h3 class="text-sm font-extrabold text-slate-900 tracking-tight">Search Ads</h3>
+          <span class="text-xs text-slate-400 font-medium">— three intent variants, shown as they'd render on Google</span>
         </div>
 
-        <!-- White SERP Card Container -->
-        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-7 space-y-5 font-google">
-          
-          <!-- Card Sub-header: Sponsored results / Hide sponsored results -->
+        <!-- Google SERP Container -->
+        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-7 space-y-6">
           <div class="flex items-center justify-between text-xs text-slate-500 pb-1">
-            <span class="font-bold text-slate-900 text-[13px]">Sponsored results</span>
-            <span class="text-slate-400 hover:text-slate-600 cursor-pointer text-[12px]">Hide sponsored results</span>
+            <span class="font-bold text-slate-800 text-sm">Sponsored results</span>
+            <span class="text-slate-400 hover:text-slate-600 cursor-pointer">Hide sponsored results</span>
           </div>
 
-          <!-- VARIANT 1: Expense Management, Built In -->
-          <div class="space-y-1 group">
-            <!-- Favicon & URL Row -->
+          <!-- Variant 1: Expense Management -->
+          <div class="space-y-1.5 group">
             <div class="flex items-center gap-2">
               <div class="w-6 h-6 rounded-full bg-[#008751] flex items-center justify-center p-1 shrink-0">
-                <svg class="w-3.5 h-3.5" viewBox="0 0 100 100" fill="none">
+                <svg class="w-4 h-4" viewBox="0 0 100 100" fill="none">
                   <path d="M50 4 V42" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
                   <path d="M19 23 L44 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
                   <path d="M81 23 L56 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
@@ -199,24 +191,21 @@
                 <span class="text-[11px] text-slate-500 font-normal">venn.ca/expense-management</span>
               </div>
             </div>
-            <!-- Headline Link in Google Blue -->
-            <h4 class="text-base sm:text-[19px] font-medium text-[#1a0dab] group-hover:underline cursor-pointer leading-snug pt-0.5">
+            <h4 class="text-base sm:text-lg font-bold text-[#1a0dab] group-hover:underline cursor-pointer leading-snug">
               Expense Management, Built In | Cards + Auto-Tracking
             </h4>
-            <!-- Description Snippet -->
-            <p class="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-normal">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               Corporate cards, automated expense reports, and accounting sync — plus your balance earns 2% interest while it sits. No fees, no setup cost.
             </p>
           </div>
 
-          <!-- Divider Line -->
           <div class="h-px bg-slate-100"></div>
 
-          <!-- VARIANT 2: Lock In 3.5% Interest Before Oct 15 -->
-          <div class="space-y-1 group">
+          <!-- Variant 2: Interest Boost -->
+          <div class="space-y-1.5 group">
             <div class="flex items-center gap-2">
               <div class="w-6 h-6 rounded-full bg-[#008751] flex items-center justify-center p-1 shrink-0">
-                <svg class="w-3.5 h-3.5" viewBox="0 0 100 100" fill="none">
+                <svg class="w-4 h-4" viewBox="0 0 100 100" fill="none">
                   <path d="M50 4 V42" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
                   <path d="M19 23 L44 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
                   <path d="M81 23 L56 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
@@ -230,22 +219,21 @@
                 <span class="text-[11px] text-slate-500 font-normal">venn.ca/interest-boost</span>
               </div>
             </div>
-            <h4 class="text-base sm:text-[19px] font-medium text-[#1a0dab] group-hover:underline cursor-pointer leading-snug pt-0.5">
+            <h4 class="text-base sm:text-lg font-bold text-[#1a0dab] group-hover:underline cursor-pointer leading-snug">
               Lock In 3.5% Interest Before Oct 15 | No Caps
             </h4>
-            <p class="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-normal">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               Most business accounts pay 0%. For a limited time — ending October 15 — new funds at Venn earn up to 3.5%, locked in for 12 months. After that, it reverts to our standard 2%.
             </p>
           </div>
 
-          <!-- Divider Line -->
           <div class="h-px bg-slate-100"></div>
 
-          <!-- VARIANT 3: Considering Float or Ramp? -->
-          <div class="space-y-1 group">
+          <!-- Variant 3: Competitor Conquest -->
+          <div class="space-y-1.5 group">
             <div class="flex items-center gap-2">
               <div class="w-6 h-6 rounded-full bg-[#008751] flex items-center justify-center p-1 shrink-0">
-                <svg class="w-3.5 h-3.5" viewBox="0 0 100 100" fill="none">
+                <svg class="w-4 h-4" viewBox="0 0 100 100" fill="none">
                   <path d="M50 4 V42" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
                   <path d="M19 23 L44 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
                   <path d="M81 23 L56 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
@@ -259,29 +247,28 @@
                 <span class="text-[11px] text-slate-500 font-normal">venn.ca/compare</span>
               </div>
             </div>
-            <h4 class="text-base sm:text-[19px] font-medium text-[#1a0dab] group-hover:underline cursor-pointer leading-snug pt-0.5">
+            <h4 class="text-base sm:text-lg font-bold text-[#1a0dab] group-hover:underline cursor-pointer leading-snug">
               Considering Float or Ramp? | See Venn's Full Platform
             </h4>
-            <p class="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-normal">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               Compare Venn's all-in-one banking, expense management, and interest rate against other Canadian fintechs. No minimums.
             </p>
           </div>
 
         </div>
 
-        <!-- Exact 4 Intent Allocation Pills matching image -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-0.5 text-[11px] font-medium">
-          <div class="px-2.5 py-2.5 rounded-lg bg-[#e8edf2] text-slate-700 font-bold text-center leading-tight">
+        <!-- Exact 4 Allocation Pills from uploaded image -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs">
+          <div class="p-2.5 rounded-lg bg-slate-200/80 border border-slate-300 text-slate-700 font-bold text-center">
             Brand — 15%
           </div>
-          <div class="px-2.5 py-2.5 rounded-lg bg-[#e8edf2] text-slate-700 font-bold text-center leading-tight">
+          <div class="p-2.5 rounded-lg bg-slate-200/80 border border-slate-300 text-slate-700 font-bold text-center">
             Category — Expense Mgmt — 35%
           </div>
-          <!-- Active Green Pill -->
-          <div class="px-2.5 py-2.5 rounded-lg bg-[#279f64] text-white font-bold text-center shadow-xs leading-tight">
+          <div class="p-2.5 rounded-lg bg-[#2e9e6b] text-white font-bold text-center shadow-xs">
             Category — Interest / Yield — 30%
           </div>
-          <div class="px-2.5 py-2.5 rounded-lg bg-[#e8edf2] text-slate-700 font-bold text-center leading-tight">
+          <div class="p-2.5 rounded-lg bg-slate-200/80 border border-slate-300 text-slate-700 font-bold text-center">
             Competitor Conquest — 20%
           </div>
         </div>
@@ -289,38 +276,49 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- FORMAT 2: LINKEDIN DOCUMENT AD (Exact Match to LinkedIn — Document Ad@2x.png) -->
+      <!-- FORMAT 2: LINKEDIN 6-SLIDE EXECUTIVE BRIEF & LEAD GEN FORM -->
       <!-- ========================================================================= -->
-      <section id="format-linkedin-section" class="w-full flex flex-col space-y-3.5 font-linkedin">
-        
+      <section id="format-linkedin-doc-section" class="w-full flex flex-col space-y-3.5 font-linkedin">
         <!-- Header text -->
-        <div class="px-0.5">
-          <h3 class="text-sm font-extrabold text-slate-900 tracking-tight">LinkedIn — Document Ad</h3>
+        <div class="flex items-center justify-between px-0.5">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-black bg-[#0a66c2] text-white">
+              <i class="fa-brands fa-linkedin text-xs"></i>
+              <span>LinkedIn</span>
+            </span>
+            <h3 class="text-sm font-extrabold text-slate-900 tracking-tight">Executive 6-Slide Document Ad</h3>
+          </div>
+          <button onclick="openLeadGenModal()" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-[#008751] border border-emerald-200 hover:bg-emerald-100 text-[11px] font-bold transition-colors cursor-pointer">
+            <i class="fa-solid fa-calculator text-[10px]"></i>
+            <span>Preview Gated Form</span>
+          </button>
         </div>
 
-        <!-- White LinkedIn Feed Post Unit -->
+        <!-- Document Ad Card -->
         <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
-          
           <!-- Post Author Header -->
-          <div class="p-4 flex items-start justify-between">
+          <div class="p-3.5 sm:p-4 flex items-start justify-between">
             <div class="flex items-center gap-3">
-              <!-- Rounded Green Logo Square -->
-              <div class="w-11 h-11 rounded-lg bg-[#18925b] flex items-center justify-center p-2 shrink-0 text-white">
+              <div class="w-11 h-11 rounded-lg bg-black flex items-center justify-center p-2 text-white shrink-0 border border-slate-100 shadow-xs">
                 <svg class="w-7 h-7" viewBox="0 0 100 100" fill="none">
-                  <path d="M50 4 V42" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M19 23 L44 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M81 23 L56 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M4 51 H36 C42 51, 44 42, 50 42 C56 42, 58 51, 64 51 H96" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M22 88 L43 56" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M78 88 L57 56" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M50 4 V42" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+                  <path d="M19 23 L44 45" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+                  <path d="M81 23 L56 45" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+                  <path d="M4 51 H36 C42 51, 44 42, 50 42 C56 42, 58 51, 64 51 H96" stroke="#008751" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M22 88 L43 56" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+                  <path d="M78 88 L57 56" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
                 </svg>
               </div>
               <div class="leading-tight">
-                <h4 class="text-sm font-bold text-slate-900">Venn</h4>
-                <p class="text-xs text-slate-500">10,432 followers</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-sm font-bold text-slate-900">Venn</span>
+                  <span class="text-[11px] font-medium text-slate-400">&bull; 1st</span>
+                </div>
+                <p class="text-xs text-slate-500">The modern digital banking platform for Canadian entrepreneurs</p>
                 <div class="flex items-center gap-1 text-[11px] text-slate-400 mt-0.5">
                   <span>Promoted</span>
-                  <i class="fa-solid fa-circle-info text-[9px]"></i>
+                  <span>&bull;</span>
+                  <i class="fa-solid fa-globe text-[9px]"></i>
                 </div>
               </div>
             </div>
@@ -328,90 +326,284 @@
           </div>
 
           <!-- Post Copy -->
-          <div class="px-4 pb-3.5 text-[13.5px] text-slate-800 leading-relaxed font-normal">
-            <p>Why Canadian finance teams are moving off big bank accounts — and what they're switching to instead. <span class="text-slate-400 font-semibold cursor-pointer">...more</span></p>
+          <div class="px-4 pb-3 text-xs sm:text-[13px] text-slate-800 leading-relaxed space-y-1.5">
+            <p>
+              Canadian finance teams are routinely giving up <strong>$15,000 to $50,000+ every year</strong> on operating cash float without realizing it.
+            </p>
+            <p class="text-slate-600">
+              Swipe through to see the 3 structural bank costs bleeding Canadian operating float — or explore: <span onclick="showToast('Navigating to venn.ca/platform...')" class="text-[#0a66c2] font-bold hover:underline cursor-pointer">venn.ca/platform &rarr;</span>
+            </p>
           </div>
 
-          <!-- Vibrant Emerald Document Visual Frame (#18925b) -->
-          <div class="relative bg-[#18925b] text-white p-8 sm:p-12 flex flex-col justify-between min-h-[340px] sm:min-h-[360px] select-none shadow-inner">
-            
-            <!-- Venn Logo Mark Top Left -->
-            <div class="flex items-center gap-2">
-              <svg class="w-5 h-5" viewBox="0 0 100 100" fill="none">
-                <path d="M50 4 V42" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                <path d="M19 23 L44 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                <path d="M81 23 L56 45" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                <path d="M4 51 H36 C42 51, 44 42, 50 42 C56 42, 58 51, 64 51 H96" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M22 88 L43 56" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-                <path d="M78 88 L57 56" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
-              </svg>
-              <span class="font-extrabold text-white text-xl tracking-tight leading-none">venn</span>
+          <!-- Document Viewer Frame (4:5 Aspect Ratio) -->
+          <div class="relative bg-[#0a0d12] text-white border-y border-slate-200 overflow-hidden select-none">
+            <div class="relative w-full aspect-[4/5] min-h-[380px] sm:min-h-[420px] flex items-center justify-center">
+
+              <!-- SLIDE 1: Cover Page -->
+              <div id="brief-slide-1" class="w-full h-full p-6 sm:p-8 flex flex-col justify-between text-white relative overflow-hidden bg-gradient-to-br from-[#0a0d12] via-[#0f1722] to-[#042f1f]">
+                <div class="flex items-center justify-between relative z-10">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/10 text-emerald-400 border border-emerald-400/20">
+                    <i class="fa-solid fa-chart-line text-[9px]"></i> 2026 Executive Brief
+                  </span>
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4" viewBox="0 0 100 100" fill="none">
+                      <path d="M50 4 V42" stroke="#008751" stroke-width="14" stroke-linecap="round"/>
+                      <path d="M19 23 L44 45" stroke="#008751" stroke-width="14" stroke-linecap="round"/>
+                      <path d="M81 23 L56 45" stroke="#008751" stroke-width="14" stroke-linecap="round"/>
+                      <path d="M4 51 H36 C42 51, 44 42, 50 42 C56 42, 58 51, 64 51 H96" stroke="#008751" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M22 88 L43 56" stroke="#008751" stroke-width="14" stroke-linecap="round"/>
+                      <path d="M78 88 L57 56" stroke="#008751" stroke-width="14" stroke-linecap="round"/>
+                    </svg>
+                    <span class="font-extrabold text-white text-sm tracking-tight">venn</span>
+                  </div>
+                </div>
+
+                <div class="space-y-3 my-auto relative z-10">
+                  <span class="text-[11px] font-extrabold tracking-widest text-emerald-400 uppercase">Special Report</span>
+                  <h2 class="text-xl sm:text-2xl font-extrabold text-white leading-tight tracking-tight">
+                    Why Canadian Finance Teams Are Moving Off Big Bank Accounts.
+                  </h2>
+                  <p class="text-xs text-slate-300 leading-relaxed font-normal">
+                    The 3 hidden leaks draining Canadian corporate treasury — and how modern controllers capture automatic 2% to 3.5% yield on every single dollar.
+                  </p>
+                  <div class="pt-1 flex items-center gap-3 text-[10px] font-semibold text-slate-400">
+                    <span class="flex items-center gap-1"><i class="fa-solid fa-users text-[#008751]"></i> 15,000+ Businesses</span>
+                    <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-[#008751]"></i> CDIC-Eligible Float</span>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 relative z-10">
+                  <span>Part 1: The 0% Interest Trap</span>
+                  <span class="text-emerald-400 font-bold flex items-center gap-1">Swipe &rarr;</span>
+                </div>
+              </div>
+
+              <!-- SLIDE 2: 0% Interest Trap -->
+              <div id="brief-slide-2" class="w-full h-full p-6 sm:p-8 flex flex-col justify-between text-white relative overflow-hidden bg-gradient-to-br from-[#0a0d12] via-[#111827] to-[#1f2937] hidden">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
+                    Cost 1 &bull; Capital Erosion
+                  </span>
+                  <span class="text-xs text-slate-500 font-semibold">02 / 06</span>
+                </div>
+
+                <div class="space-y-3 my-auto">
+                  <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    The 0.00% Operating Cash Trap.
+                  </h3>
+                  <p class="text-xs text-slate-300 leading-relaxed">
+                    Legacy Canadian banks loan out your operational float overnight to earn prime rates, while returning <strong>zero interest</strong> to your business account.
+                  </p>
+                  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1.5 text-xs">
+                    <div class="flex justify-between text-slate-400">
+                      <span>Average Operating Float:</span>
+                      <span class="font-bold text-white">$250,000 CAD</span>
+                    </div>
+                    <div class="flex justify-between text-slate-400">
+                      <span>Big 5 Bank Annual Return:</span>
+                      <span class="font-bold text-rose-400">$0.00</span>
+                    </div>
+                    <div class="h-px bg-slate-800"></div>
+                    <div class="flex justify-between font-bold text-emerald-400 pt-0.5">
+                      <span>Venn Automatic Yield (2% - 3.5%):</span>
+                      <span class="text-white">+$5,000 to +$8,750 / yr</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                  <span>Next: The Expense Report Quagmire</span>
+                  <span class="text-slate-300 font-bold">Swipe &rarr;</span>
+                </div>
+              </div>
+
+              <!-- SLIDE 3: Manual Expense Quagmire -->
+              <div id="brief-slide-3" class="w-full h-full p-6 sm:p-8 flex flex-col justify-between text-white relative overflow-hidden bg-gradient-to-br from-[#0a0d12] via-[#111827] to-[#1a202c] hidden">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                    Cost 2 &bull; Operational Friction
+                  </span>
+                  <span class="text-xs text-slate-500 font-semibold">03 / 06</span>
+                </div>
+
+                <div class="space-y-3 my-auto">
+                  <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    The Month-End Receipt Shoebox.
+                  </h3>
+                  <p class="text-xs text-slate-300 leading-relaxed">
+                    Corporate credit cards from legacy institutions aren't built for modern teams. They lack instant SMS receipt capture and native accounting sync.
+                  </p>
+                  <div class="space-y-2 text-xs">
+                    <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex items-start gap-2">
+                      <i class="fa-solid fa-xmark text-rose-400 mt-0.5"></i>
+                      <span class="text-slate-300"><strong class="text-white">15+ hours lost monthly:</strong> Chasing employees for faded paper receipts.</span>
+                    </div>
+                    <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex items-start gap-2">
+                      <i class="fa-solid fa-xmark text-rose-400 mt-0.5"></i>
+                      <span class="text-slate-300"><strong class="text-white">Clunky Expensify add-ons:</strong> Paying $9–$18 per seat for disjointed spend software.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                  <span>Next: Punitive FX & Wire Fees</span>
+                  <span class="text-slate-300 font-bold">Swipe &rarr;</span>
+                </div>
+              </div>
+
+              <!-- SLIDE 4: Hidden FX & Wire Markups -->
+              <div id="brief-slide-4" class="w-full h-full p-6 sm:p-8 flex flex-col justify-between text-white relative overflow-hidden bg-gradient-to-br from-[#0a0d12] via-[#111827] to-[#1c1917] hidden">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
+                    Cost 3 &bull; Hidden Markups
+                  </span>
+                  <span class="text-xs text-slate-500 font-semibold">04 / 06</span>
+                </div>
+
+                <div class="space-y-3 my-auto">
+                  <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    2.5% to 3.5% Hidden FX Tolls.
+                  </h3>
+                  <p class="text-xs text-slate-300 leading-relaxed">
+                    Paying US software subscriptions (AWS, HubSpot, OpenAI) or remote contractors with a standard bank card incurs punitive foreign transaction spreads.
+                  </p>
+                  <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5 text-xs">
+                    <div class="flex justify-between text-slate-400">
+                      <span>Big 5 Hidden Spread (3%):</span>
+                      <span class="font-bold text-rose-400">-$900 / mo ($10,800/yr)</span>
+                    </div>
+                    <div class="flex justify-between text-slate-400">
+                      <span>Incoming/Outgoing Wire Fees:</span>
+                      <span class="font-bold text-rose-400">$35–$50 per transfer</span>
+                    </div>
+                    <div class="h-px bg-slate-800"></div>
+                    <div class="flex justify-between font-bold text-emerald-400 pt-0.5">
+                      <span>Venn Institutional Spread:</span>
+                      <span class="text-white">Save ~$9,000/yr</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                  <span>Next: The Venn Solution</span>
+                  <span class="text-emerald-400 font-bold">The Solution &rarr;</span>
+                </div>
+              </div>
+
+              <!-- SLIDE 5: The Venn Alternative -->
+              <div id="brief-slide-5" class="w-full h-full p-6 sm:p-8 flex flex-col justify-between text-white relative overflow-hidden bg-gradient-to-br from-[#032014] via-[#062c1d] to-[#0a0d12] hidden">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-400/30">
+                    The Modern Standard
+                  </span>
+                  <span class="text-xs text-slate-400 font-semibold">05 / 06</span>
+                </div>
+
+                <div class="space-y-3 my-auto">
+                  <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    See What 15,000+ Canadian Businesses Switched To.
+                  </h3>
+                  <p class="text-xs text-emerald-100/90 leading-relaxed">
+                    Venn replaces fragmented banking portals with a unified operating financial stack engineered for Canadian entrepreneurs.
+                  </p>
+                  <div class="space-y-2 text-xs">
+                    <div class="p-2.5 rounded-lg bg-black/40 border border-emerald-500/30 flex items-center gap-2.5">
+                      <i class="fa-solid fa-percent text-emerald-400 text-sm"></i>
+                      <span class="text-slate-200"><strong class="text-white">2.00% to 3.50% Automatic Yield:</strong> Credited monthly on CAD & USD.</span>
+                    </div>
+                    <div class="p-2.5 rounded-lg bg-black/40 border border-emerald-500/30 flex items-center gap-2.5">
+                      <i class="fa-solid fa-receipt text-emerald-400 text-sm"></i>
+                      <span class="text-slate-200"><strong class="text-white">Automated Receipt OCR:</strong> Real-time 2-way sync to QuickBooks & Xero.</span>
+                    </div>
+                    <div class="p-2.5 rounded-lg bg-black/40 border border-emerald-500/30 flex items-center gap-2.5">
+                      <i class="fa-solid fa-credit-card text-emerald-400 text-sm"></i>
+                      <span class="text-slate-200"><strong class="text-white">1% Unlimited Card Cashback:</strong> Unlimited cards with granular limits.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                  <span>Part 6: Take Action</span>
+                  <span class="text-emerald-400 font-bold">Next &rarr;</span>
+                </div>
+              </div>
+
+              <!-- SLIDE 6: Final Conversion Slide -->
+              <div id="brief-slide-6" class="w-full h-full p-6 sm:p-8 flex flex-col justify-between text-white relative overflow-hidden bg-gradient-to-br from-[#0a0d12] via-[#0b1712] to-[#04331f] hidden">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-white/90 bg-white/10 px-2 py-0.5 rounded-full border border-white/20">
+                    Next Steps
+                  </span>
+                  <span class="text-xs text-slate-400 font-semibold">06 / 06</span>
+                </div>
+
+                <div class="space-y-3 my-auto text-center">
+                  <div class="w-10 h-10 rounded-xl bg-[#008751] flex items-center justify-center mx-auto text-base shadow-md">
+                    <i class="fa-solid fa-calculator text-white"></i>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    Stop Subsidizing Legacy Banks.
+                  </h3>
+                  <p class="text-xs text-slate-300 max-w-xs mx-auto leading-relaxed">
+                    Calculate your team's exact 1-year financial advantage across interest earned, FX saved, and avoided bank fees.
+                  </p>
+                  <div class="pt-1 flex flex-col gap-2 max-w-xs mx-auto">
+                    <button onclick="openLeadGenModal()" class="w-full py-2.5 rounded-lg bg-[#008751] hover:bg-[#007545] text-white font-bold text-xs transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer">
+                      <i class="fa-solid fa-file-excel text-[11px]"></i>
+                      <span>Get the Free Calculator</span>
+                    </button>
+                    <button onclick="showToast('Redirecting to Venn Platform Overview...')" class="w-full py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold text-xs transition-all border border-white/20 cursor-pointer">
+                      See the platform &rarr;
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+                  <span>Venn Financial Technologies &copy; 2026</span>
+                  <button onclick="changeBriefSlide(1 - currentBriefSlide)" class="hover:text-white transition-colors cursor-pointer">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Start over
+                  </button>
+                </div>
+              </div>
+
+              <!-- Carousel Chevron Controls -->
+              <button onclick="changeBriefSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer z-10">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+              </button>
+              <button onclick="changeBriefSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer z-10">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+              </button>
             </div>
 
-            <!-- Dynamic Slide Content Body -->
-            <div class="my-auto py-6">
-              <div id="li-slide-1" class="space-y-2">
-                <h3 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                  Your business account pays 0% interest.
-                </h3>
-              </div>
-              <div id="li-slide-2" class="space-y-2 hidden">
-                <h3 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                  Plus you're paying $120+/month just to hold cash.
-                </h3>
-              </div>
-              <div id="li-slide-3" class="space-y-2 hidden">
-                <h3 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                  Venn pays up to 3.5% with expense tools built in.
-                </h3>
-              </div>
-              <div id="li-slide-4" class="space-y-2 hidden">
-                <h3 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                  Automated receipt matching. Zero monthly fees.
-                </h3>
-              </div>
+            <!-- Bottom Control Bar -->
+            <div class="bg-black/95 text-white px-3.5 py-2 flex items-center justify-between text-xs border-t border-white/10">
+              <span id="brief-slide-counter" class="font-bold text-slate-200">1 of 6</span>
+              <button onclick="openLeadGenModal()" class="text-emerald-400 hover:text-emerald-300 font-bold text-xs transition-colors cursor-pointer">
+                <i class="fa-solid fa-unlock mr-1"></i> Unlock Benchmark Model
+              </button>
             </div>
-
-            <!-- Carousel Navigation Chevrons -->
-            <button onclick="changeLinkedInSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/35 hover:bg-white/50 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer" aria-label="Previous Slide">
-              <i class="fa-solid fa-chevron-left text-xs"></i>
-            </button>
-            <button onclick="changeLinkedInSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/35 hover:bg-white/50 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer" aria-label="Next Slide">
-              <i class="fa-solid fa-chevron-right text-xs"></i>
-            </button>
-
-            <!-- Bottom Counter Pill -->
-            <div class="flex justify-end">
-              <span id="li-slide-counter" class="px-2.5 py-1 rounded-md bg-black/40 text-xs font-bold text-white tracking-widest">
-                1 / 4
-              </span>
-            </div>
-
           </div>
 
-          <!-- Bottom Action Strip matching image -->
-          <div class="p-4 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-slate-100">
-            <div class="space-y-0.5">
-              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">VENN.CA</span>
-              <h5 class="text-sm font-extrabold text-slate-900 leading-snug">
-                See what 15,000+ Canadian businesses switched to
-              </h5>
+          <!-- Bottom Action Bar with Gated CTA -->
+          <div class="p-3.5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+            <div>
+              <span class="text-xs font-bold text-slate-900 block">Canadian Corporate Yield &amp; Fee Benchmark Calculator</span>
+              <span class="text-[11px] text-slate-500">Free model: Compare your Big 5 bank float returns vs. Venn</span>
             </div>
-            <button onclick="showToast('Redirecting to Venn Platform Overview...')" class="w-full sm:w-auto px-5 py-2 rounded-full border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-xs transition-colors whitespace-nowrap cursor-pointer">
-              See the platform
+            <button onclick="openLeadGenModal()" class="w-full sm:w-auto px-5 py-2 rounded-full bg-[#0a66c2] hover:bg-[#004182] text-white font-bold text-xs transition-colors whitespace-nowrap shadow-xs flex items-center justify-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-file-excel text-xs"></i>
+              <span>Get the Calculator</span>
             </button>
           </div>
 
-          <!-- Engagement Buttons -->
-          <div class="px-4 py-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-semibold">
+          <!-- Engagement Strip -->
+          <div class="px-4 py-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-semibold">
             <span class="flex items-center gap-1.5 cursor-pointer hover:text-slate-800"><i class="fa-regular fa-thumbs-up"></i> Like</span>
             <span class="flex items-center gap-1.5 cursor-pointer hover:text-slate-800"><i class="fa-regular fa-comment-dots"></i> Comment</span>
             <span class="flex items-center gap-1.5 cursor-pointer hover:text-slate-800"><i class="fa-solid fa-retweet"></i> Repost</span>
             <span class="flex items-center gap-1.5 cursor-pointer hover:text-slate-800"><i class="fa-regular fa-paper-plane"></i> Send</span>
           </div>
-
         </div>
-
       </section>
 
       <!-- ========================================================================= -->
@@ -589,46 +781,132 @@
 
   </main>
 
+  <!-- Interactive Modal: LinkedIn Native Lead Gen Form Simulation -->
+  <div id="lead-gen-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative">
+      <button onclick="closeLeadGenModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg cursor-pointer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-3 border-b border-slate-100 pb-3.5 mb-4">
+        <div class="w-10 h-10 rounded-lg bg-black flex items-center justify-center p-1.5 shrink-0">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none">
+            <path d="M50 4 V42" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+            <path d="M19 23 L44 45" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+            <path d="M81 23 L56 45" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+            <path d="M4 51 H36 C42 51, 44 42, 50 42 C56 42, 58 51, 64 51 H96" stroke="#008751" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 88 L43 56" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+            <path d="M78 88 L57 56" stroke="#008751" stroke-width="13" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-[#008751]">Venn Special Resource</span>
+          <h3 class="text-base font-extrabold text-slate-950 leading-tight">
+            Canadian Corporate Cash Yield &amp; Fee Benchmark Calculator
+          </h3>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+        Access our custom interactive Google Sheet model comparing your current Big 5 bank interest and fee schedule with Venn's automatic 2.00% to 3.50% yield.
+      </p>
+
+      <form id="linkedin-lead-form" onsubmit="handleLeadGenSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Work Email</label>
+          <input type="email" required value="alexandre.chen@innovatetech.ca" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-slate-900 bg-slate-50 focus:outline-none focus:border-[#008751] focus:ring-1 focus:ring-[#008751]">
+          <span class="text-[10px] text-slate-400">Pre-filled from LinkedIn profile</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">First Name</label>
+            <input type="text" required value="Alexandre" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-slate-900 bg-slate-50 focus:outline-none focus:border-[#008751]">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Job Title</label>
+            <input type="text" required value="VP of Finance" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-slate-900 bg-slate-50 focus:outline-none focus:border-[#008751]">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Average Canadian &amp; US Cash Float Held</label>
+          <select class="w-full border border-slate-200 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:border-[#008751] focus:ring-1 focus:ring-[#008751]">
+            <option>$50,000 – $150,000</option>
+            <option selected>$150,000 – $500,000 (Earn ~$3,000 to $10,000/yr)</option>
+            <option>$500,000 – $1,500,000 (Earn ~$10,000 to $30,000/yr)</option>
+            <option>$1,500,000+ (Eligible for up to 3.5% Custom Rate)</option>
+          </select>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-3 rounded-lg font-bold text-xs bg-[#008751] hover:bg-[#007545] text-white transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-file-excel text-xs"></i>
+            <span>Download Calculator &amp; Benchmark Report</span>
+          </button>
+        </div>
+
+        <p class="text-[10px] text-slate-400 text-center pt-1">
+          By clicking Submit, you agree to Venn's Privacy Policy. No spam, ever.
+        </p>
+      </form>
+
+      <!-- Success Confirmation State -->
+      <div id="lead-form-success" class="hidden text-center py-6 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-[#e6f4ea] text-[#008751] flex items-center justify-center mx-auto text-xl">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h4 class="font-extrabold text-base text-slate-900">Calculator On Its Way!</h4>
+        <p class="text-xs text-slate-600 max-w-sm mx-auto">
+          We've sent the interactive 2026 Yield Benchmark Sheet to your email.
+        </p>
+        <button onclick="closeLeadGenModal()" class="mt-2 px-5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 cursor-pointer">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Interactive JavaScript Logic -->
   <script>
-    // LinkedIn Carousel State
-    let currentSlide = 1;
-    const totalSlides = 4;
+    // LinkedIn Executive Brief State (6-Slide Carousel)
+    let currentBriefSlide = 1;
+    const totalBriefSlides = 6;
 
-    function changeLinkedInSlide(dir) {
-      currentSlide += dir;
-      if (currentSlide > totalSlides) currentSlide = 1;
-      if (currentSlide < 1) currentSlide = totalSlides;
+    function changeBriefSlide(dir) {
+      currentBriefSlide += dir;
+      if (currentBriefSlide > totalBriefSlides) currentBriefSlide = 1;
+      if (currentBriefSlide < 1) currentBriefSlide = totalBriefSlides;
 
-      for (let i = 1; i <= totalSlides; i++) {
-        const slide = document.getElementById(`li-slide-${i}`);
+      for (let i = 1; i <= totalBriefSlides; i++) {
+        const slide = document.getElementById(`brief-slide-${i}`);
         if (slide) {
-          slide.classList.toggle('hidden', i !== currentSlide);
+          slide.classList.toggle('hidden', i !== currentBriefSlide);
         }
       }
 
-      const counter = document.getElementById('li-slide-counter');
+      const counter = document.getElementById('brief-slide-counter');
       if (counter) {
-        counter.innerText = `${currentSlide} / ${totalSlides}`;
+        counter.innerText = `${currentBriefSlide} of ${totalBriefSlides}`;
       }
     }
 
     // Channel View Switcher Filter
     function selectView(channel) {
-      const tabs = ['all', 'search', 'linkedin', 'meta', 'reddit'];
+      const tabs = ['all', 'search', 'linkedin-doc', 'meta', 'reddit'];
       tabs.forEach(t => {
         const btn = document.getElementById(`tab-${t}`);
         if (btn) {
           if (t === channel) {
             btn.className = "px-3 py-1.5 rounded-lg bg-[#008751] text-white shadow-xs transition-all";
           } else {
-            btn.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5";
+            btn.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-black hover:bg-slate-100 transition-all flex items-center gap-1.5 cursor-pointer";
           }
         }
       });
 
       const secSearch = document.getElementById('format-search-section');
-      const secLinkedin = document.getElementById('format-linkedin-section');
+      const secLinkedinDoc = document.getElementById('format-linkedin-doc-section');
       const secMeta = document.getElementById('format-meta-section');
       const secReddit = document.getElementById('format-reddit-section');
       const grid = document.getElementById('creatives-grid');
@@ -636,16 +914,37 @@
       if (channel === 'all') {
         grid.className = "grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start";
         secSearch.style.display = 'flex';
-        secLinkedin.style.display = 'flex';
+        secLinkedinDoc.style.display = 'flex';
         secMeta.style.display = 'flex';
         secReddit.style.display = 'flex';
       } else {
         grid.className = "max-w-2xl mx-auto w-full";
         secSearch.style.display = channel === 'search' ? 'flex' : 'none';
-        secLinkedin.style.display = channel === 'linkedin' ? 'flex' : 'none';
+        secLinkedinDoc.style.display = channel === 'linkedin-doc' ? 'flex' : 'none';
         secMeta.style.display = channel === 'meta' ? 'flex' : 'none';
         secReddit.style.display = channel === 'reddit' ? 'flex' : 'none';
       }
+    }
+
+    // Lead Gen Modal Logic
+    function openLeadGenModal() {
+      const modal = document.getElementById('lead-gen-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeLeadGenModal() {
+      const modal = document.getElementById('lead-gen-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.getElementById('linkedin-lead-form').classList.remove('hidden');
+      document.getElementById('lead-form-success').classList.add('hidden');
+    }
+
+    function handleLeadGenSubmit(e) {
+      e.preventDefault();
+      document.getElementById('linkedin-lead-form').classList.add('hidden');
+      document.getElementById('lead-form-success').classList.remove('hidden');
     }
 
     // Copy Ad Copy to Clipboard
@@ -667,10 +966,13 @@ Headline: Considering Float or Ramp? | See Venn's Full Platform
 URL: venn.ca/compare
 Description: Compare Venn's all-in-one banking, expense management, and interest rate against other Canadian fintechs. No minimums.
 
-=== LINKEDIN DOCUMENT AD ===
-Intro: Why Canadian finance teams are moving off big bank accounts — and what they're switching to instead.
-Slide 1: Your business account pays 0% interest.
-CTA: See the platform (VENN.CA)
+=== LINKEDIN DOCUMENT AD (6 SLIDES) ===
+Cover: Why Canadian Finance Teams Are Moving Off Big Bank Accounts
+Cost 1: The 0.00% Operating Cash Trap (+$5,000 to +$8,750 on $250k float)
+Cost 2: The Month-End Receipt Shoebox (15+ hours lost monthly)
+Cost 3: 2.5% to 3.5% Hidden FX Tolls (Save ~$9,000/yr)
+The Solution: 2%–3.5% yield + receipt OCR + 1% cashback cards
+CTA: Get the Calculator / See the platform
 
 === META FEED / STORY AD ===
 Visual: Your business account earned $0 in interest last year.
@@ -707,10 +1009,15 @@ Body: Our account earned nothing on ~$150K sitting in it. Moved to Venn: up to 3
       }
     }
 
-    // Keyboard support for LinkedIn slide viewer
+    // Keyboard support for slide viewers
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') changeLinkedInSlide(1);
-      if (e.key === 'ArrowLeft') changeLinkedInSlide(-1);
+      if (e.key === 'ArrowRight') {
+        changeBriefSlide(1);
+      }
+      if (e.key === 'ArrowLeft') {
+        changeBriefSlide(-1);
+      }
+      if (e.key === 'Escape') closeLeadGenModal();
     });
   </script>
 </body>
